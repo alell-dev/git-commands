@@ -1,2 +1,2 @@
-# git-ssh-manager
-Multi Git SSH commands
+# Collection of git utils tools
+
