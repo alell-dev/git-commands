@@ -1,0 +1,31 @@
+#!/bin/sh
+
+# THIS SCRIPT WILL FIND ALL GIT REPOSITORIES INSIDE YOUR CURRENT PATH AND EXECUTE COMMAND FOR ALL THEN.
+# PRE-REQ: ADD EXECUTION PERMISSION FOR THIS SCRIPT LIKE 'chmod +x ./git-each'
+# USAGE:
+#     ./git-each [GIT COMMAND] [GIT ARGUMENTS]
+#     ./git-each pull
+#     ./git-each checkout -b new-branch origin/new-branch
+#     ./git-each merge
+#     ./git-each stash -u
+#     ./git-each stash apply
+#     
+
+## UNCOMMENT BELLOW LINES TO FIX YOUR CUSTOM PRIVATE SSH KEY AND USER INFO FOR EACH REPOSTITORY BEFORE RUN GIT INCOMMING COMMANDS
+# export PRIVATE_SSH_KEY_FILE=~/.ssh/id_rsa_non_default
+# export USER_EMAIL="my-user.from-non-default-private-key@mail.com"
+# export USER_NAME="My Full Name From non Default Private Key"
+
+# export GIT_SSH_COMMAND='ssh -i ${PRIVATE_SSH_KEY_FILE} -o IdentitiesOnly=yes'
+
+# echo "Fixing SSH key to '${PRIVATE_SSH_KEY_FILE}' ..."
+# find ./ -name .git -execdir git config --local core.sshCommand "${GIT_SSH_COMMAND}" \;
+
+# echo "Fixing user.mail to '${USER_EMAIL}'..."
+# find ./ -name .git -execdir git config --local user.email "${USER_EMAIL}" \;
+
+# echo "Fixing user.name to '${USER_NAME}'..."
+# find ./ -name .git -execdir git config --local user.name "${USER_NAME}" \;
+
+
+find ./ -name .git -printf "Executing $@ in  %P ...\n" -execdir git "$@" \;
